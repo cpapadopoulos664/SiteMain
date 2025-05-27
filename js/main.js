@@ -44,8 +44,8 @@ const LanguageManager = {
         // Update all links to include the language parameter
         this.updateLinks(lang);
     
-        // Reset popup visibility when switching languages
-        if (popup) {
+        // Only show popup if it hasn't been clicked before
+        if (popup && !window.popupClicked) {
             popup.style.display = 'block';
         }
     

@@ -195,6 +195,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get popup element
     const popup = document.getElementById('popup');
     
+    // Track if popup has been clicked
+    window.popupClicked = false;
+    
     // Create a reusable popup click handler
     const handlePopupClick = (e) => {
         // Don't hide popup when clicking language buttons
@@ -203,6 +206,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (popup) {
             popup.style.display = 'none';
+            window.popupClicked = true;
         }
     };
     
