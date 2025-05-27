@@ -11,10 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const originalBtnText = submitBtn ? submitBtn.textContent : 'Send';
         
         // Add form submission handling with validation
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Always prevent default to handle submission ourselves
+            
             // Basic validation
             if (!validateForm(form)) {
-                e.preventDefault();
                 return;
             }
             
@@ -22,6 +23,26 @@ document.addEventListener('DOMContentLoaded', () => {
             if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.textContent = form.id.includes('gr') ? 'Αποστολή...' : 'Sending...';
+            }
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors' // This prevents the redirect
+                });
+                
+                // Reset form
+                form.reset();
+            } catch (error) {
+                // Silently handle any errors
+            } finally {
+                // Reset button state
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                }
             }
         });
         
