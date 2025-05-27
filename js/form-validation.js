@@ -13,29 +13,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add form submission handling with validation
         form.addEventListener('submit', (e) => {
             // Basic validation
-            if (!validateForm(form)) return;
+            if (!validateForm(form)) {
+                e.preventDefault();
+                return;
+            }
             
             // Change button state during submission
             if (submitBtn) {
                 submitBtn.disabled = true;
                 submitBtn.textContent = form.id.includes('gr') ? 'Αποστολή...' : 'Sending...';
             }
-
-            // Show success message
-            showFormMessage(
-                form, 
-                form.id.includes('gr') ? 'Το μήνυμά σας στάλθηκε με επιτυχία!' : 'Your message was sent successfully!', 
-                'success'
-            );
-
-            // Reset form after a short delay
-            setTimeout(() => {
-                form.reset();
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = originalBtnText;
-                }
-            }, 1000);
         });
         
         // Real-time validation feedback
@@ -127,32 +114,4 @@ function clearValidation(input) {
     if (errorEl) {
         errorEl.remove();
     }
-}
-
-/**
- * Show a form message after submission
- * @param {HTMLFormElement} form - The form to show the message on
- * @param {string} message - The message to display
- * @param {string} type - The type of message (success/error)
- */
-function showFormMessage(form, message, type) {
-    // Remove any existing messages
-    const existingMessage = form.querySelector('.form-message');
-    if (existingMessage) {
-        existingMessage.remove();
-    }
-    
-    // Create message element
-    const messageEl = document.createElement('div');
-    messageEl.className = `form-message ${type}`;
-    messageEl.textContent = message;
-    
-    // Add to form
-    form.appendChild(messageEl);
-    
-    // Auto-remove after 5 seconds
-    setTimeout(() => {
-        messageEl.classList.add('fade-out');
-        setTimeout(() => messageEl.remove(), 300);
-    }, 5000);
 } 
