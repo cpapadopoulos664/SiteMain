@@ -25,21 +25,27 @@ document.addEventListener('DOMContentLoaded', () => {
             
             try {
                 // Submit the form
-                await fetch(form.action, {
+                const response = await fetch(form.action, {
                     method: form.method,
                     body: new FormData(form),
                     headers: {
                         'Accept': 'application/json'
                     }
                 });
-                
-                // Success handling
-                form.reset();
-                showFormMessage(
-                    form, 
-                    form.id.includes('gr') ? 'Το μήνυμά σας στάλθηκε με επιτυχία!' : 'Your message was sent successfully!', 
-                    'success'
-                );
+
+                // Check if the response is ok (status in the range 200-299)
+                if (response.ok) {
+                    // Success handling
+                    form.reset();
+                    showFormMessage(
+                        form, 
+                        form.id.includes('gr') ? 'Το μήνυμά σας στάλθηκε με επιτυχία!' : 'Your message was sent successfully!', 
+                        'success'
+                    );
+                } else {
+                    // Error handling for non-200 responses
+                    throw new Error('Form submission failed');
+                }
             } catch (error) {
                 // Error handling
                 showFormMessage(
