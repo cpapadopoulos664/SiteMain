@@ -54,21 +54,6 @@ The color scheme can be modified in `css/style.css` by changing the CSS variable
 }
 ```
 
-### Content
-Each page (bio.html, education.html, etc.) follows the same structure. To add your content:
-
-1. Replace the placeholder text in each file
-2. Add your own images to the `images/` directory
-3. Update image paths in the HTML files
-4. Modify the grid layouts and styling as needed
-
-### Adding New Sections
-To add a new section:
-
-1. Copy one of the existing page templates from the `pages/` directory
-2. Update the content and styling as needed
-3. Add a new navigation item to `index.html`
-
 ## Browser Support
 
 - Chrome (latest)
