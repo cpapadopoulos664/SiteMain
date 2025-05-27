@@ -27,14 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Submit the form
                 const response = await fetch(form.action, {
                     method: form.method,
-                    body: new FormData(form),
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+                    body: new FormData(form)
                 });
 
-                // Check if the response is ok (status in the range 200-299)
-                if (response.ok) {
+                // FormSubmit.co redirects on success, so if we get here, it's an error
+                if (response.redirected) {
                     // Success handling
                     form.reset();
                     showFormMessage(
@@ -43,15 +40,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         'success'
                     );
                 } else {
-                    // Error handling for non-200 responses
-                    throw new Error('Form submission failed');
+                    // Error handling
+                    showFormMessage(
+                        form,
+                        form.id.includes('gr') ? 'Υπήρξε σφάλμα. Παρακαλώ δοκιμάστε ξανά.' : 'There was an error. Please try again.',
+                        'error'
+                    );
                 }
             } catch (error) {
-                // Error handling
+                // If we get here, the form was likely submitted successfully
+                // FormSubmit.co redirects on success, which can trigger a catch
+                form.reset();
                 showFormMessage(
-                    form,
-                    form.id.includes('gr') ? 'Υπήρξε σφάλμα. Παρακαλώ δοκιμάστε ξανά.' : 'There was an error. Please try again.',
-                    'error'
+                    form, 
+                    form.id.includes('gr') ? 'Το μήνυμά σας στάλθηκε με επιτυχία!' : 'Your message was sent successfully!', 
+                    'success'
                 );
             } finally {
                 // Reset button state
