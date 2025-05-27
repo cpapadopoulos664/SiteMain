@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Developer Portfolio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/utilities.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .content-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            z-index: 1000;
+        }
+
+        .back-button i {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        @media (hover: hover) {
+            .back-button:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: scale(1.1);
+            }
+        }
+
+        @media (hover: none) {
+            .back-button:active {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .contact-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .contact-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .contact-link:hover {
+            opacity: 0.8;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        textarea.form-input {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: var(--secondary-color);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .language-switch {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switch">
+        <button onclick="switchLanguage('en')" class="lang-btn active" data-lang="en" aria-label="Switch to English">EN</button>
+        <button onclick="switchLanguage('gr')" class="lang-btn" data-lang="gr" aria-label="Switch to Greek">GR</button>
+    </div>
+
+    <button class="back-button" onclick="window.history.back()" aria-label="Go back">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <div class="container page-transition">
+        <div class="container-narrow">
+            <div class="content en">
+                <h1 class="fade-in">Contact Me</h1>
+                <div class="contact-grid mt-lg">
+                    <div class="contact-card fade-in">
+                        <i class="fas fa-envelope contact-icon"></i>
+                        <h3 class="contact-title">Email</h3>
+                        <a href="mailto:cpapadopoulos664@gmail.com" class="contact-link">cpapadopoulos664@gmail.com</a>
+                    </div>
+                    <div class="contact-card fade-in">
+                        <i class="fab fa-linkedin contact-icon"></i>
+                        <h3 class="contact-title">LinkedIn</h3>
+                        <a href="https://www.linkedin.com/in/christos-p-875145166" class="contact-link" target="_blank" rel="noopener noreferrer">linkedin.com/in/christos-p-875145166</a>
+                    </div>
+                    <div class="contact-card fade-in">
+                        <i class="fab fa-github contact-icon"></i>
+                        <h3 class="contact-title">GitHub</h3>
+                        <a href="https://github.com/cpapadopoulos664" class="contact-link" target="_blank" rel="noopener noreferrer">github.com/cpapadopoulos664</a>
+                    </div>
+                </div>
+
+                <form class="contact-form fade-in" id="contact-form-en" action="https://formsubmit.co/cpapadopoulos664@gmail.com" method="POST">
+                    <input type="hidden" name="_next" value="https://cpapadopoulos664.github.io/Site/pages/contact.html">
+                    <input type="hidden" name="_subject" value="New Portfolio Contact Form Submission">
+                    <input type="hidden" name="_captcha" value="false">
+                    <div class="form-group">
+                        <label class="form-label" for="name-en">Name</label>
+                        <input type="text" id="name-en" name="name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email-en">Email</label>
+                        <input type="email" id="email-en" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="message-en">Message</label>
+                        <textarea id="message-en" name="message" class="form-input" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+
+            <div class="content gr" style="display: none;">
+                <h1 class="fade-in">Επικοινωνία</h1>
+                <div class="contact-grid mt-lg">
+                    <div class="contact-card fade-in">
+                        <i class="fas fa-envelope contact-icon"></i>
+                        <h3 class="contact-title">Email</h3>
+                        <a href="mailto:cpapadopoulos664@gmail.com" class="contact-link">cpapadopoulos664@gmail.com</a>
+                    </div>
+                    <div class="contact-card fade-in">
+                        <i class="fab fa-linkedin contact-icon"></i>
+                        <h3 class="contact-title">LinkedIn</h3>
+                        <a href="https://www.linkedin.com/in/christos-p-875145166" class="contact-link" target="_blank" rel="noopener noreferrer">linkedin.com/in/christos-p-875145166</a>
+                    </div>
+                    <div class="contact-card fade-in">
+                        <i class="fab fa-github contact-icon"></i>
+                        <h3 class="contact-title">GitHub</h3>
+                        <a href="https://github.com/cpapadopoulos664" class="contact-link" target="_blank" rel="noopener noreferrer">github.com/cpapadopoulos664</a>
+                    </div>
+                </div>
+
+                <form class="contact-form fade-in" id="contact-form-gr" action="https://formsubmit.co/cpapadopoulos664@gmail.com" method="POST">
+                    <input type="hidden" name="_next" value="https://cpapadopoulos664.github.io/Site/pages/contact.html">
+                    <input type="hidden" name="_subject" value="Νέα Φόρμα Επικοινωνίας Portfolio">
+                    <input type="hidden" name="_captcha" value="false">
+                    <div class="form-group">
+                        <label class="form-label" for="name-gr">Όνομα</label>
+                        <input type="text" id="name-gr" name="name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email-gr">Email</label>
+                        <input type="email" id="email-gr" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="message-gr">Μήνυμα</label>
+                        <textarea id="message-gr" name="message" class="form-input" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Αποστολή Μηνύματος</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Language switching functionality
+        function switchLanguage(lang) {
+            const enContent = document.querySelector('.content.en');
+            const grContent = document.querySelector('.content.gr');
+            const buttons = document.querySelectorAll('.lang-btn');
+
+            if (lang === 'en') {
+                enContent.style.display = 'block';
+                grContent.style.display = 'none';
+            } else {
+                enContent.style.display = 'none';
+                grContent.style.display = 'block';
+            }
+
+            buttons.forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            localStorage.setItem('preferred-language', lang);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const lang = urlParams.get('lang') || localStorage.getItem('preferred-language') || 'en';
+            switchLanguage(lang);
+        });
+    </script>
+    <script src="../js/main.js"></script>
+    <script src="../js/form-validation.js"></script>
+</body>
+</html> 

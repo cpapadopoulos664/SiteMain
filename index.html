@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="popup" class="popup-message">Click me if you dare...</div>
+    <div class="language-switch">
+        <button onclick="switchLanguage('en')" class="lang-btn" data-lang="en">EN</button>
+        <button onclick="switchLanguage('gr')" class="lang-btn" data-lang="gr">GR</button>
+    </div>
+
+    <div class="container">
+        <div class="welcome-section">
+            <div class="content en">
+                <h1 class="fade-in">Welcome</h1>
+                <h2 class="name-title typing-effect">Christos Papadopoulos</h2>
+                <p class="subtitle">Software Engineer</p>
+                
+                <div class="navigation-grid">
+                    <a href="pages/bio.html" class="nav-item">
+                        <i class="fas fa-user"></i>
+                        <span>Bio</span>
+                    </a>
+                    <a href="pages/skills.html" class="nav-item">
+                        <i class="fas fa-code-branch"></i>
+                        <span>Skills</span>
+                    </a>
+                    <a href="pages/education.html" class="nav-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Education</span>
+                    </a>
+                    <a href="pages/work-experience.html" class="nav-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Work Experience</span>
+                    </a>
+                    <a href="pages/personal-projects.html" class="nav-item">
+                        <i class="fas fa-code"></i>
+                        <span>Personal Projects</span>
+                    </a>
+                    <a href="pages/hobbies.html" class="nav-item">
+                        <i class="fas fa-heart"></i>
+                        <span>Hobbies</span>
+                    </a>
+                    <a href="pages/contact.html" class="nav-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contact</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="content gr">
+                <h1 class="fade-in">Καλώς ήρθατε</h1>
+                <h2 class="name-title typing-effect">Χρήστος Παπαδόπουλος</h2>
+                <p class="subtitle">Μηχανικός Λογισμικού</p>
+                
+                <div class="navigation-grid">
+                    <a href="pages/bio.html" class="nav-item">
+                        <i class="fas fa-user"></i>
+                        <span>Βιογραφικό</span>
+                    </a>
+                    <a href="pages/skills.html" class="nav-item">
+                        <i class="fas fa-code-branch"></i>
+                        <span>Δεξιότητες</span>
+                    </a>
+                    <a href="pages/education.html" class="nav-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Εκπαίδευση</span>
+                    </a>
+                    <a href="pages/work-experience.html" class="nav-item">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Επαγγελματική Εμπειρία</span>
+                    </a>
+                    <a href="pages/personal-projects.html" class="nav-item">
+                        <i class="fas fa-code"></i>
+                        <span>Προσωπικά Projects</span>
+                    </a>
+                    <a href="pages/hobbies.html" class="nav-item">
+                        <i class="fas fa-heart"></i>
+                        <span>Ενδιαφέροντα</span>
+                    </a>
+                    <a href="pages/contact.html" class="nav-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>Επικοινωνία</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/game-of-life.js"></script>
+</body>
+</html> 

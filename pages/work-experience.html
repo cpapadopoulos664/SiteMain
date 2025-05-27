@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Developer Portfolio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            z-index: 1000;
+        }
+
+        .back-button i {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        @media (hover: hover) {
+            .back-button:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: scale(1.1);
+            }
+        }
+
+        @media (hover: none) {
+            .back-button:active {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .project-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .project-link:hover {
+            opacity: 0.8;
+        }
+
+        .language-switch {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+
+        .project-date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .date-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .location-type, .employment-type {
+            display: inline-flex;
+            align-items: center;
+            padding-left: 0.5rem;
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .project-date {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.3rem;
+            }
+
+            .date-location {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.3rem;
+            }
+
+            .location-type, .employment-type {
+                padding-left: 0;
+                border-left: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switch">
+        <button onclick="switchLanguage('en')" class="lang-btn active" data-lang="en">EN</button>
+        <button onclick="switchLanguage('gr')" class="lang-btn" data-lang="gr">GR</button>
+    </div>
+
+    <button class="back-button" onclick="window.history.back()">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <div class="container page-transition">
+        <div class="content-section">
+            <div class="content en">
+                <h1 class="fade-in">Professional Experience</h1>
+                <div class="projects-grid">
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Independent Authority for Public Revenue</h3>
+                            <p class="project-date">
+                                <span class="date-location">20/03/24 - Present, Athens <span class="location-type">Hybrid</span></span>
+                                <span class="employment-type">Full-time</span>
+                            </p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">.NET</span>
+                                <span class="tech-tag">Mobile Development</span>
+                            </div>
+                            <p class="project-description">• Developed and launched mobile applications using .NET technologies, enhancing tax collection efficiency and improving user experience for taxpayers.</p>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Artemis ITS</h3>
+                            <p class="project-date">
+                                <span class="date-location">21/02/22 - 31/01/2024, Athens <span class="location-type">Remote</span></span>
+                                <span class="employment-type">Full-time</span>
+                            </p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">.NET Framework</span>
+                                <span class="tech-tag">SQL Server</span>
+                                <span class="tech-tag">Laravel</span>
+                                <span class="tech-tag">Lumen</span>
+                            </div>
+                            <p class="project-description">
+                                • Design and develop scalable microservices and web applications using the .NET Framework in an Agile (Scrum) environment<br>
+                                • Implement and optimize database solutions using SQL Server<br>
+                                • Contribute to the maintenance and enhancement of legacy systems built with Laravel Lumen<br>
+                                • Assist with migrating legacy systems to new platforms<br>
+                                • Collaborate with cross-functional teams to align technical solutions with business requirements
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Leroy Merlin</h3>
+                            <p class="project-date">
+                                <span class="date-location">01/01/22 - 31/01/22, Athens <span class="location-type">Remote</span></span>
+                                <span class="employment-type">Contract</span>
+                            </p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Google Workspace</span>
+                            </div>
+                            <p class="project-description">
+                                • Spearheaded the integration of Google Workspace with custom JavaScript solutions for an enterprise data platform<br>
+                                • Implemented automation workflows to streamline data management processes<br>
+                                • Collaborated with stakeholders to gather requirements and deliver solutions within tight timeframes
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Hellenic Army General Staff - HAISC</h3>
+                            <p class="project-date">
+                                <span class="date-location">07/03/20 -19/10/20, Athens <span class="location-type">Onsite</span></span>
+                                <span class="employment-type">Military Service</span>
+                            </p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">R</span>
+                                <span class="tech-tag">Python</span>
+                            </div>
+                            <p class="project-description">
+                                • Developed sophisticated simulation models using R and Python for military applications<br>
+                                • Enhanced decision-making processes and operational strategies through data-driven insights<br>
+                                • Collaborated with interdisciplinary teams to ensure accuracy and relevance of simulations for defense scenarios
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content gr">
+                <h1 class="fade-in">Επαγγελματική Εμπειρία</h1>
+                <div class="projects-grid">
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Ανεξάρτητη Αρχή Δημοσίων Εσόδων</h3>
+                            <p class="project-date">
+                                <span class="date-location">20/03/24 - Παρόν, Αθήνα <span class="location-type">Υβριδικά</span></span>
+                                <span class="employment-type">Πλήρης Απασχόληση</span>
+                            </p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">.NET</span>
+                                <span class="tech-tag">Mobile Development</span>
+                            </div>
+                            <p class="project-description">Ανάπτυξη εφαρμογών για κινητά χρησιμοποιώντας τεχνολογίες .NET, βελτιώνοντας την αποτελεσματικότητα είσπραξης φόρων και την εμπειρία χρήστη για τους φορολογούμενους.</p>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Artemis ITS</h3>
+                            <p class="project-date">
+                                <span class="date-location">21/02/22 - 31/01/2024, Αθήνα <span class="location-type">Απομακρυσμένα</span></span>
+                                <span class="employment-type">Πλήρης Απασχόληση</span>
+                            </p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">.NET Framework</span>
+                                <span class="tech-tag">SQL Server</span>
+                                <span class="tech-tag">Laravel</span>
+                                <span class="tech-tag">Lumen</span>
+                            </div>
+                            <p class="project-description">
+                                • Σχεδιασμός και ανάπτυξη κλιμακώσιμων microservices και web εφαρμογών χρησιμοποιώντας .NET σε περιβάλλον Agile (Scrum)<br>
+                                • Υλοποίηση και βελτιστοποίηση λύσεων βάσεων δεδομένων με χρήση SQL Server<br>
+                                • Συνεισφορά στη συντήρηση και βελτίωση παλαιών συστημάτων με Laravel Lumen<br>
+                                • Υποστήριξη στη μετάβαση παλαιών συστημάτων σε νέες πλατφόρμες<br>
+                                • Συνεργασία με διατμηματικές ομάδες για την ευθυγράμμιση τεχνικών λύσεων με επιχειρηματικές απαιτήσεις
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Leroy Merlin</h3>
+                            <p class="project-date">
+                                <span class="date-location">01/01/22 - 31/01/22, Αθήνα <span class="location-type">Απομακρυσμένα</span></span>
+                                <span class="employment-type">Συμβόλαιο</span>
+                            </p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Google Workspace</span>
+                            </div>
+                            <p class="project-description">
+                                • Ενσωμάτωση του Google Workspace με προσαρμοσμένες λύσεις JavaScript για μια εταιρική πλατφόρμα δεδομένων<br>
+                                • Υλοποίηση αυτοματοποιημένων ροών εργασίας για τη βελτιστοποίηση διαχείρισης δεδομένων<br>
+                                • Συλλογή απαιτήσεων και παράδοση λύσεων εντός αυστηρών χρονοδιαγραμμάτων
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Γενικό Επιτελείο Στρατού - ΚΕΠΥΕΣ</h3>
+                            <p class="project-date">
+                                <span class="date-location">07/03/20 - 19/10/20, Αθήνα <span class="location-type">Επιτόπου</span></span>
+                                <span class="employment-type">Στρατιωτική Θητεία</span>
+                            </p>
+                            <div class="tech-stack">
+                                <span class="tech-tag">R</span>
+                                <span class="tech-tag">Python</span>
+                            </div>
+                            <p class="project-description">
+                                • Ανάπτυξη εξελιγμένων μοντέλων προσομοίωσης με χρήση R και Python για στρατιωτικές εφαρμογές<br>
+                                • Βελτίωση διαδικασιών λήψης αποφάσεων και επιχειρησιακών στρατηγικών μέσω ανάλυσης δεδομένων<br>
+                                • Συνεργασία με διεπιστημονικές ομάδες για τη διασφάλιση ακρίβειας και συνάφειας των προσομοιώσεων για αμυντικά σενάρια
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Language switching functionality
+        function switchLanguage(lang) {
+            const enContent = document.querySelector('.content.en');
+            const grContent = document.querySelector('.content.gr');
+            const buttons = document.querySelectorAll('.lang-btn');
+
+            if (lang === 'en') {
+                enContent.style.display = 'block';
+                grContent.style.display = 'none';
+            } else {
+                enContent.style.display = 'none';
+                grContent.style.display = 'block';
+            }
+
+            buttons.forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            localStorage.setItem('preferred-language', lang);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const lang = urlParams.get('lang') || localStorage.getItem('preferred-language') || 'en';
+            switchLanguage(lang);
+        });
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html> 

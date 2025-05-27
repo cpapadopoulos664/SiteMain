@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Personal Projects - Developer Portfolio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--container-padding);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: clamp(1.5rem, 4vw, 2rem);
+            margin-top: clamp(2rem, 5vw, 3rem);
+        }
+
+        @media (max-width: 480px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (hover: hover) {
+            .project-card:hover {
+                transform: translateY(-10px);
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        @media (hover: none) {
+            .project-card:active {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: clamp(1.2rem, 3vw, 1.5rem);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .project-title {
+            font-size: clamp(1.3rem, 3.5vw, 1.5rem);
+            margin-top: clamp(1.5rem, 4vw, 2rem);
+            margin-bottom: clamp(0.8rem, 2vw, 1rem);
+            color: var(--primary-color);
+        }
+
+        .project-description {
+            margin-bottom: clamp(1.2rem, 3vw, 1.5rem);
+            line-height: 1.6;
+            flex-grow: 1;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        .project-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(0.5rem, 2vw, 1rem);
+            margin-top: auto;
+        }
+
+        .project-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all var(--transition-speed) ease;
+            padding: clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.8rem, 2vw, 1rem);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+
+        @media (hover: hover) {
+            .project-link:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateY(-2px);
+            }
+        }
+
+        @media (hover: none) {
+            .project-link:active {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .language-switch {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(0.4rem, 1.5vw, 0.5rem);
+            margin-bottom: clamp(0.8rem, 2vw, 1rem);
+        }
+
+        .tech-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: clamp(0.3rem, 1vw, 0.3rem) clamp(0.6rem, 2vw, 0.8rem);
+            border-radius: 15px;
+            font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+            transition: all var(--transition-speed) ease;
+        }
+
+        @media (hover: hover) {
+            .tech-tag:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateY(-2px);
+            }
+        }
+
+        .project-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: clamp(0.3rem, 1vw, 0.3rem) clamp(0.6rem, 2vw, 0.8rem);
+            border-radius: 15px;
+            font-size: clamp(0.8rem, 2.2vw, 0.9rem);
+            z-index: 1;
+        }
+
+        .status-completed {
+            background: rgba(39, 174, 96, 0.2);
+            color: #27ae60;
+        }
+
+        .status-in-progress {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
+        }
+
+        /* Fix for container pointer events */
+        .container {
+            pointer-events: auto !important;
+        }
+
+        .content-section {
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-card {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: clamp(1rem, 3vw, 1.5rem);
+        }
+
+        @media (max-width: 480px) {
+            .content-section {
+                padding-top: calc(var(--header-height) + var(--container-padding));
+            }
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            z-index: 1000;
+        }
+
+        .back-button i {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        @media (hover: hover) {
+            .back-button:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: scale(1.1);
+            }
+        }
+
+        @media (hover: none) {
+            .back-button:active {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switch">
+        <button onclick="switchLanguage('en')" class="lang-btn active" data-lang="en">EN</button>
+        <button onclick="switchLanguage('gr')" class="lang-btn" data-lang="gr">GR</button>
+    </div>
+
+    <button class="back-button" onclick="window.history.back()">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <div class="container page-transition">
+        <div class="content-section">
+            <div class="content en">
+                <h1 class="fade-in">Personal Projects</h1>
+                <div class="projects-grid">
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <span class="project-status status-completed">Completed</span>
+                            <h3 class="project-title">Portfolio Website</h3>
+                            <div class="tech-stack">
+                                <span class="tech-tag">HTML5</span>
+                                <span class="tech-tag">CSS3</span>
+                                <span class="tech-tag">JavaScript</span>
+                            </div>
+                            <p class="project-description">A modern, responsive portfolio website with bilingual support (English/Greek), featuring smooth animations and a clean design. Built with a focus on performance and user experience.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/cpapadopoulos664/SiteMain" class="project-link" target="_blank">
+                                    <i class="fab fa-github"></i>
+                                    <span>GitHub</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <span class="project-status status-in-progress">In Progress</span>
+                            <h3 class="project-title">Visual Map Interaction</h3>
+                            <div class="tech-stack">
+                                <span class="tech-tag">.NET MAUI</span>
+                                <span class="tech-tag">C#</span>
+                                <span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">XAML</span>
+                            </div>
+                            <p class="project-description">A cross-platform app built with .NET MAUI and Firebase, offering secure user authentication and real-time chat. Users can capture and overlay images, post them on a shared map, and engage with others by responding with their own photos, fostering interactive visual communication.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/cpapadopoulos664/Chat" class="project-link" target="_blank">
+                                    <i class="fab fa-github"></i>
+                                    <span>GitHub</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <span class="project-status status-completed">Completed</span>
+                            <h3 class="project-title">Memory Span Test</h3>
+                            <div class="tech-stack">
+                                <span class="tech-tag">HTML5</span>
+                                <span class="tech-tag">CSS3</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Vite</span>
+                            </div>
+                            <p class="project-description">An interactive web application for testing working memory capacity through digit span tests. Features include forward and backward digit span testing, customizable digit count, and adjustable display duration. Built with modern web technologies for optimal performance.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/cpapadopoulos664/Memory" class="project-link" target="_blank">
+                                    <i class="fab fa-github"></i>
+                                    <span>GitHub</span>
+                                </a>
+                                <a href="https://cpapadopoulos664.github.io/Memory/" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    <span>Live Demo</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content gr">
+                <h1 class="fade-in">Προσωπικά Projects</h1>
+                <div class="projects-grid">
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <span class="project-status status-completed">Ολοκληρωμένο</span>
+                            <h3 class="project-title">Ιστοσελίδα Portfolio</h3>
+                            <div class="tech-stack">
+                                <span class="tech-tag">HTML5</span>
+                                <span class="tech-tag">CSS3</span>
+                                <span class="tech-tag">JavaScript</span>
+                            </div>
+                            <p class="project-description">Μια σύγχρονη, responsive ιστοσελίδα portfolio με υποστήριξη δύο γλωσσών (Αγγλικά/Ελληνικά), με ομαλά animations και καθαρό σχεδιασμό, με έμφαση στην απόδοση και την εμπειρία χρήστη.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/cpapadopoulos664/SiteMain" class="project-link" target="_blank">
+                                    <i class="fab fa-github"></i>
+                                    <span>GitHub</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <span class="project-status status-in-progress">Σε Εξέλιξη</span>
+                            <h3 class="project-title">Οπτική Αλληλεπίδραση σε Χάρτη</h3>
+                            <div class="tech-stack">
+                                <span class="tech-tag">.NET MAUI</span>
+                                <span class="tech-tag">C#</span>
+                                <span class="tech-tag">Firebase</span>
+                                <span class="tech-tag">XAML</span>
+                            </div>
+                            <p class="project-description">Εφαρμογή πολλαπλών πλατφορμών με .NET MAUI και Firebase, προσφέροντας ασφαλή ταυτοποίηση χρηστών και συνομιλία σε πραγματικό χρόνο. Οι χρήστες μπορούν να τραβούν και να επεξεργάζονται εικόνες, να τις δημοσιεύουν σε κοινόχρηστο χάρτη και να αλληλεπιδρούν ανταποκρινόμενοι με δικές τους φωτογραφίες, ενισχύοντας την οπτική επικοινωνία.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/cpapadopoulos664/Chat" class="project-link" target="_blank">
+                                    <i class="fab fa-github"></i>
+                                    <span>GitHub</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card fade-in">
+                        <div class="project-content">
+                            <span class="project-status status-completed">Ολοκληρωμένο</span>
+                            <h3 class="project-title">Memory Span Test</h3>
+                            <div class="tech-stack">
+                                <span class="tech-tag">HTML5</span>
+                                <span class="tech-tag">CSS3</span>
+                                <span class="tech-tag">JavaScript</span>
+                            </div>
+                            <p class="project-description">Μια διαδραστική διαδικτυακή εφαρμογή σχεδιασμένη για την αξιολόγηση της χωρητικότητας της εργαζόμενης μνήμης μέσω δοκιμών ακολουθίας ψηφίων. Η εφαρμογή περιλαμβάνει δοκιμασίες τόσο προοδευτικής όσο και αντίστροφης ανάκλησης, με δυνατότητα προσαρμογής του αριθμού των ψηφίων καθώς και της διάρκειας εμφάνισης τους, παρέχοντας ευέλικτες και αξιόπιστες μετρήσεις.</p>
+                            <div class="project-links">
+                                <a href="https://github.com/cpapadopoulos664/Memory" class="project-link" target="_blank">
+                                    <i class="fab fa-github"></i>
+                                    <span>GitHub</span>
+                                </a>
+                                <a href="https://cpapadopoulos664.github.io/Memory/" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    <span>Demo</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html> 

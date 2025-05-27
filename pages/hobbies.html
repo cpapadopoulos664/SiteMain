@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobbies - Developer Portfolio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            z-index: 1000;
+        }
+
+        .back-button i {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        @media (hover: hover) {
+            .back-button:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: scale(1.1);
+            }
+        }
+
+        @media (hover: none) {
+            .back-button:active {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .hobbies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .hobby-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hobby-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .hobby-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .hobby-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .hobby-description {
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .language-switch {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .hobby-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switch">
+        <button onclick="switchLanguage('en')" class="lang-btn active" data-lang="en">EN</button>
+        <button onclick="switchLanguage('gr')" class="lang-btn" data-lang="gr">GR</button>
+    </div>
+
+    <button class="back-button" onclick="window.history.back()">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <div class="container page-transition">
+        <div class="content-section">
+            <div class="content en">
+                <h1 class="fade-in">Hobbies & Interests</h1>
+                <div class="hobbies-grid">
+                    <!-- English content -->
+                    <div class="hobby-card fade-in">
+                        <i class="fas fa-cube hobby-icon"></i>
+                        <h3 class="hobby-title">3D/Animation</h3>
+                        <p class="hobby-description">Creating 3D models and animations using Blender, exploring digital art and visual storytelling through three-dimensional design.</p>
+                    </div>
+                    <div class="hobby-card fade-in">
+                        <i class="fas fa-plane hobby-icon"></i>
+                        <h3 class="hobby-title">Traveling</h3>
+                        <p class="hobby-description">Exploring new cultures, places, and experiences around the world, broadening horizons and gaining fresh perspectives.</p>
+                    </div>
+                    <div class="hobby-card fade-in">
+                        <i class="fas fa-atom hobby-icon"></i>
+                        <h3 class="hobby-title">Science</h3>
+                        <p class="hobby-description">Passionate about understanding the natural world, with a particular interest in physics and biology.</p>
+                    </div>
+                    <div class="hobby-card fade-in">
+                        <i class="fas fa-palette hobby-icon"></i>
+                        <h3 class="hobby-title">Art</h3>
+                        <p class="hobby-description">Exploring various forms of artistic expression, from traditional drawing to digital art, as a means of creative expression and visual communication.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content gr" style="display: none;">
+                <h1 class="fade-in">Χόμπι & Ενδιαφέροντα</h1>
+                <div class="hobbies-grid">
+                    <!-- Greek content -->
+                    <div class="hobby-card fade-in">
+                        <i class="fas fa-cube hobby-icon"></i>
+                        <h3 class="hobby-title">3D/Animation</h3>
+                        <p class="hobby-description">Δημιουργία 3D μοντέλων και animations χρησιμοποιώντας το Blender, εξερευνώντας την ψηφιακή τέχνη και την οπτική αφήγηση μέσω τρισδιάστατου σχεδιασμού.</p>
+                    </div>
+                    <div class="hobby-card fade-in">
+                        <i class="fas fa-plane hobby-icon"></i>
+                        <h3 class="hobby-title">Ταξίδια</h3>
+                        <p class="hobby-description">Εξερεύνηση νέων πολιτισμών, μερών και εμπειριών σε όλο τον κόσμο, διευρύνοντας τους ορίζοντες και αποκτώντας νέες προοπτικές.</p>
+                    </div>
+                    <div class="hobby-card fade-in">
+                        <i class="fas fa-atom hobby-icon"></i>
+                        <h3 class="hobby-title">Επιστήμη</h3>
+                        <p class="hobby-description">Ισχυρό ενδιαφέρον για την κατανόηση των μηχανισμών του φυσικού κόσμου, με έμφαση στη φυσική και τη βιολογία.</p>
+                    </div>
+                    <div class="hobby-card fade-in">
+                        <i class="fas fa-palette hobby-icon"></i>
+                        <h3 class="hobby-title">Τέχνη</h3>
+                        <p class="hobby-description">Εξερεύνηση διαφόρων μορφών καλλιτεχνικής έκφρασης, από το παραδοσιακό σχέδιο έως την ψηφιακή τέχνη, ως μέσο δημιουργικής έκφρασης και οπτικής επικοινωνίας.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Language switching functionality
+        function switchLanguage(lang) {
+            const enContent = document.querySelector('.content.en');
+            const grContent = document.querySelector('.content.gr');
+            const buttons = document.querySelectorAll('.lang-btn');
+
+            if (lang === 'en') {
+                enContent.style.display = 'block';
+                grContent.style.display = 'none';
+            } else {
+                enContent.style.display = 'none';
+                grContent.style.display = 'block';
+            }
+
+            buttons.forEach(btn => {
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            localStorage.setItem('preferred-language', lang);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const lang = urlParams.get('lang') || localStorage.getItem('preferred-language') || 'en';
+            switchLanguage(lang);
+        });
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+</html> 

@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Skills - Developer Portfolio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--container-padding);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: clamp(1.5rem, 4vw, 2rem);
+        }
+
+        @media (max-width: 480px) {
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .skill-category {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: clamp(1.2rem, 3vw, 1.5rem);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .skill-category h2 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: clamp(1.2rem, 3vw, 1.5rem);
+            color: var(--primary-color);
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+        }
+
+        .skill-category h2 i {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: clamp(0.6rem, 2vw, 0.8rem);
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: clamp(0.4rem, 1.5vw, 0.5rem) clamp(0.8rem, 2vw, 1rem);
+            border-radius: 20px;
+            font-size: clamp(0.85rem, 2.2vw, 0.9rem);
+            cursor: pointer;
+            position: relative;
+            transition: all var(--transition-speed) ease;
+        }
+
+        @media (hover: hover) {
+            .skill-tag:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateY(-2px);
+            }
+        }
+
+        @media (hover: none) {
+            .skill-tag:active {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .skill-tooltip {
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: clamp(0.6rem, 2vw, 0.8rem);
+            border-radius: 8px;
+            font-size: clamp(0.8rem, 2vw, 0.85rem);
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-speed) ease;
+            z-index: 1000;
+            min-width: 150px;
+            text-align: center;
+            pointer-events: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 480px) {
+            .skill-tooltip {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                max-width: 300px;
+                white-space: normal;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+
+            .skill-tooltip::after {
+                display: none;
+            }
+        }
+
+        .skill-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+        }
+
+        @media (hover: hover) {
+            .skill-tag:hover .skill-tooltip {
+                visibility: visible;
+                opacity: 1;
+                bottom: 130%;
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        @media (hover: none) {
+            .skill-tag:active .skill-tooltip {
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+
+        .skill-level {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .skill-level-fill {
+            height: 100%;
+            background: var(--primary-color);
+            border-radius: 2px;
+            transition: width var(--transition-speed) ease;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            z-index: 1000;
+        }
+
+        .back-button i {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        @media (hover: hover) {
+            .back-button:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: scale(1.1);
+            }
+        }
+
+        @media (hover: none) {
+            .back-button:active {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: clamp(1.5rem, 4vw, 2rem);
+            padding: 0 var(--container-padding);
+        }
+
+        @media (max-width: 480px) {
+            .content-section {
+                padding-top: calc(var(--header-height) + var(--container-padding));
+            }
+
+            h1 {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switch">
+        <button onclick="switchLanguage('en')" class="lang-btn active" data-lang="en">EN</button>
+        <button onclick="switchLanguage('gr')" class="lang-btn" data-lang="gr">GR</button>
+    </div>
+
+    <button class="back-button" onclick="window.history.back()">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <div class="container page-transition">
+        <div class="content-section">
+            <div class="content en">
+                <h1 class="fade-in">Technical Skills</h1>
+                <div class="skills-container">
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-code"></i> Programming Languages</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                C#
+                                <div class="skill-tooltip">
+                                    Advanced - 90%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                C++
+                                <div class="skill-tooltip">
+                                    Advanced - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Python
+                                <div class="skill-tooltip">
+                                    Intermediate - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                SQL
+                                <div class="skill-tooltip">
+                                    Advanced - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                PHP
+                                <div class="skill-tooltip">
+                                    Intermediate - 70%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-layer-group"></i> Frameworks</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                ASP.NET Core
+                                <div class="skill-tooltip">
+                                    Advanced - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Entity Framework
+                                <div class="skill-tooltip">
+                                    Advanced - 80%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                .NET MAUI
+                                <div class="skill-tooltip">
+                                    Advanced - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-desktop"></i> Systems</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                Linux/Unix
+                                <div class="skill-tooltip">
+                                    Advanced - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Windows
+                                <div class="skill-tooltip">
+                                    Advanced - 90%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Android
+                                <div class="skill-tooltip">
+                                    Intermediate - 70%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-code-branch"></i> Version Control</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                GitLab
+                                <div class="skill-tooltip">
+                                    Advanced - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                GitHub
+                                <div class="skill-tooltip">
+                                    Advanced - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-cogs"></i> Development Practices</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                RESTful APIs
+                                <div class="skill-tooltip">
+                                    Advanced - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Unit Testing
+                                <div class="skill-tooltip">
+                                    Advanced - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                MVC
+                                <div class="skill-tooltip">
+                                    Advanced - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                MVVM
+                                <div class="skill-tooltip">
+                                    Advanced - 80%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-cloud"></i> Cloud Platforms</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                Firebase
+                                <div class="skill-tooltip">
+                                    Intermediate - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Microsoft Azure
+                                <div class="skill-tooltip">
+                                    Intermediate - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-tools"></i> Software Tools</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                Jira
+                                <div class="skill-tooltip">
+                                    Advanced - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Power BI
+                                <div class="skill-tooltip">
+                                    Advanced - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Looker Studio
+                                <div class="skill-tooltip">
+                                    Intermediate - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-language"></i> Languages</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                English (C2)
+                                <div class="skill-tooltip">
+                                    Advanced - 95%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 95%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Greek (Native)
+                                <div class="skill-tooltip">
+                                    Native - 100%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-cube"></i> 3D Modeling</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                Blender
+                                <div class="skill-tooltip">
+                                    Intermediate - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                ZBrush
+                                <div class="skill-tooltip">
+                                    Intermediate - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-gamepad"></i> Game Engines</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                Unreal Engine
+                                <div class="skill-tooltip">
+                                    Intermediate - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content gr">
+                <h1 class="fade-in">Τεχνικές Δεξιότητες</h1>
+                <div class="skills-container">
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-code"></i> Προγραμματισμός</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                C#
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 90%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                C++
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Python
+                                <div class="skill-tooltip">
+                                    Μεσαίο - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                SQL
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                PHP
+                                <div class="skill-tooltip">
+                                    Μεσαίο - 70%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-layer-group"></i> Frameworks</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                ASP.NET Core
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Entity Framework
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 80%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                .NET MAUI
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-desktop"></i> Συστήματα</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                Linux/Unix
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Windows
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 90%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 90%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Android
+                                <div class="skill-tooltip">
+                                    Μεσαίο - 70%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-code-branch"></i> Έλεγχος Εκδόσεων</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                GitLab
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                GitHub
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-cogs"></i> Πρακτικές Ανάπτυξης</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                RESTful APIs
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Unit Testing
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                MVC
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                MVVM
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 80%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-cloud"></i> Cloud Πλατφόρμες</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                Firebase
+                                <div class="skill-tooltip">
+                                    Μεσαίο - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Microsoft Azure
+                                <div class="skill-tooltip">
+                                    Μεσαίο - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-tools"></i> Εργαλεία Λογισμικού</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                Jira
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Power BI
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 85%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Looker Studio
+                                <div class="skill-tooltip">
+                                    Μεσαίο - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-language"></i> Γλώσσες</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                Αγγλικά (C2)
+                                <div class="skill-tooltip">
+                                    Προχωρημένο - 95%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 95%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                Ελληνικά (Μητρική)
+                                <div class="skill-tooltip">
+                                    Μητρική - 100%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-cube"></i> 3D Μοντελοποίηση</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                Blender
+                                <div class="skill-tooltip">
+                                    Μεσαίο - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tag">
+                                ZBrush
+                                <div class="skill-tooltip">
+                                    Μεσαίο - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category fade-in">
+                        <h2><i class="fas fa-gamepad"></i> Game Engines</h2>
+                        <div class="skill-tags">
+                            <div class="skill-tag">
+                                Unreal Engine
+                                <div class="skill-tooltip">
+                                    Μεσαίο - 75%
+                                    <div class="skill-level">
+                                        <div class="skill-level-fill" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html> 

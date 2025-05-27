@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education - Developer Portfolio</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .content-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 1rem;
+            border-radius: 50%;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            z-index: 1000;
+        }
+
+        .back-button i {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+        }
+
+        @media (hover: hover) {
+            .back-button:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: scale(1.1);
+            }
+        }
+
+        @media (hover: none) {
+            .back-button:active {
+                background: rgba(255, 255, 255, 0.2);
+            }
+        }
+
+        .education-timeline {
+            margin-top: 3rem;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .timeline-item h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .timeline-item .date {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-item p {
+            line-height: 1.6;
+        }
+
+        .gpa-section {
+            background: rgba(var(--primary-color-rgb), 0.1);
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(var(--primary-color-rgb), 0.2);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .gpa-section:hover {
+            transform: translateX(5px);
+            background: rgba(var(--primary-color-rgb), 0.15);
+            border-color: rgba(var(--primary-color-rgb), 0.3);
+        }
+
+        .gpa-section p {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .gpa-section p::before {
+            content: '\f19d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .thesis-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .thesis-section:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .thesis-section p {
+            margin: 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
+
+        .thesis-section p::before {
+            content: '\f02d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-top: 0.2rem;
+        }
+
+        .thesis-section .grade {
+            font-size: 1rem;
+        }
+
+        .certificate-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .certificate-section:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .certificate-section h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .certificate-section h4::before {
+            content: '\f5a2';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .certificate-section .date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .certificate-section .credential {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-family: monospace;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .course-highlights {
+            margin: 1.5rem 0;
+        }
+
+        .course-highlights p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+        }
+
+        .course-highlights ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .course-highlights li {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.8rem 1.2rem;
+            margin-bottom: 0.5rem;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .course-highlights li:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .course-highlights .grade {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1rem;
+        }
+
+        .language-switch {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            z-index: 1000;
+            display: flex;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switch">
+        <button onclick="switchLanguage('en')" class="lang-btn" data-lang="en">EN</button>
+        <button onclick="switchLanguage('gr')" class="lang-btn" data-lang="gr">GR</button>
+    </div>
+
+    <button class="back-button" onclick="window.history.back()">
+        <i class="fas fa-arrow-left"></i>
+    </button>
+
+    <div class="container page-transition">
+        <div class="content-section">
+            <div class="content en">
+                <h1 class="fade-in">Education</h1>
+                <div class="education-timeline">
+                    <div class="timeline-item fade-in">
+                        <h3>B.S. in Informatics and Telecommunications</h3>
+                        <div class="date">2019</div>
+                        <p>University of Peloponnese, Tripoli, Greece</p>
+                        <div class="gpa-section">
+                            <p>GPA: 6.8</p>
+                        </div>
+                        <div class="course-highlights">
+                            <p>Course Highlights:</p>
+                            <ul>
+                                <li>Artificial Intelligence <span class="grade">10/10</span></li>
+                                <li>Semantic Web <span class="grade">9/10</span></li>
+                                <li>Information Security <span class="grade">8.5/10</span></li>
+                                <li>Numerical Analysis, Programming <span class="grade">8/10</span></li>
+                                <li>Data Structures <span class="grade">7.5/10</span></li>
+                            </ul>
+                        </div>
+                        <div class="thesis-section">
+                            <p>Thesis: "Cooperative communication techniques for intelligent radio systems, from theory to practice" <span class="grade">10/10</span></p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item fade-in">
+                        <h3><a href="https://www.coursera.org/account/accomplishments/professional-cert/certificate/M3PJRP35QE8E" target="_blank" style="color: inherit; text-decoration: none;">Google Data Analytics Professional Certificate</a></h3>
+                        <div class="date">2021</div>
+                        <p>Coursera</p>
+                        <div class="credential">Credential ID: M3PJRP35QE8E</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content gr">
+                <h1 class="fade-in">Εκπαίδευση</h1>
+                <div class="education-timeline">
+                    <div class="timeline-item fade-in">
+                        <h3>Πτυχίο Πληροφορικής και Τηλεπικοινωνιών</h3>
+                        <div class="date">2019</div>
+                        <p>Πανεπιστήμιο Πελοποννήσου, Τρίπολη</p>
+                        <div class="gpa-section">
+                            <p>Μέσος Όρος: 6.8</p>
+                        </div>
+                        <div class="course-highlights">
+                            <p>Σημαντικά Μαθήματα:</p>
+                            <ul>
+                                <li>Τεχνητή Νοημοσύνη <span class="grade">10/10</span></li>
+                                <li>Σημασιολογικός Ιστός <span class="grade">9/10</span></li>
+                                <li>Ασφάλεια Πληροφοριών <span class="grade">8.5/10</span></li>
+                                <li>Αριθμητική Ανάλυση, Προγραμματισμός <span class="grade">8/10</span></li>
+                                <li>Δομές Δεδομένων <span class="grade">7.5/10</span></li>
+                            </ul>
+                        </div>
+                        <div class="thesis-section">
+                            <p>Πτυχιακή: "Τεχνικές συνεργατικής επικοινωνίας για ευφυή συστήματα ραδιοεπικοινωνιών, από τη θεωρία στην πράξη" <span class="grade">10/10</span></p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item fade-in">
+                        <h3><a href="https://www.coursera.org/account/accomplishments/professional-cert/certificate/M3PJRP35QE8E" target="_blank" style="color: inherit; text-decoration: none;">Google Data Analytics Professional Certificate</a></h3>
+                        <div class="date">2021</div>
+                        <p>Coursera</p>
+                        <div class="credential">Credential ID: M3PJRP35QE8E</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+</body>
+</html> 
