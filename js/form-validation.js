@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.textContent = form.id.includes('gr') ? 'Αποστολή...' : 'Sending...';
             }
 
-            // Show success message immediately since we know FormSubmit.co works
+            // Show success message
             showFormMessage(
                 form, 
                 form.id.includes('gr') ? 'Το μήνυμά σας στάλθηκε με επιτυχία!' : 'Your message was sent successfully!', 
