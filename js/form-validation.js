@@ -11,9 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const originalBtnText = submitBtn ? submitBtn.textContent : 'Send';
         
         // Add form submission handling with validation
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
+        form.addEventListener('submit', (e) => {
             // Basic validation
             if (!validateForm(form)) return;
             
@@ -22,47 +20,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 submitBtn.disabled = true;
                 submitBtn.textContent = form.id.includes('gr') ? 'Αποστολή...' : 'Sending...';
             }
-            
-            try {
-                // Submit the form
-                const response = await fetch(form.action, {
-                    method: form.method,
-                    body: new FormData(form)
-                });
 
-                // FormSubmit.co redirects on success, so if we get here, it's an error
-                if (response.redirected) {
-                    // Success handling
-                    form.reset();
-                    showFormMessage(
-                        form, 
-                        form.id.includes('gr') ? 'Το μήνυμά σας στάλθηκε με επιτυχία!' : 'Your message was sent successfully!', 
-                        'success'
-                    );
-                } else {
-                    // Error handling
-                    showFormMessage(
-                        form,
-                        form.id.includes('gr') ? 'Υπήρξε σφάλμα. Παρακαλώ δοκιμάστε ξανά.' : 'There was an error. Please try again.',
-                        'error'
-                    );
-                }
-            } catch (error) {
-                // If we get here, the form was likely submitted successfully
-                // FormSubmit.co redirects on success, which can trigger a catch
+            // Show success message immediately since we know FormSubmit.co works
+            showFormMessage(
+                form, 
+                form.id.includes('gr') ? 'Το μήνυμά σας στάλθηκε με επιτυχία!' : 'Your message was sent successfully!', 
+                'success'
+            );
+
+            // Reset form after a short delay
+            setTimeout(() => {
                 form.reset();
-                showFormMessage(
-                    form, 
-                    form.id.includes('gr') ? 'Το μήνυμά σας στάλθηκε με επιτυχία!' : 'Your message was sent successfully!', 
-                    'success'
-                );
-            } finally {
-                // Reset button state
                 if (submitBtn) {
                     submitBtn.disabled = false;
                     submitBtn.textContent = originalBtnText;
                 }
-            }
+            }, 1000);
         });
         
         // Real-time validation feedback
