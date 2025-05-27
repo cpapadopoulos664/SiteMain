@@ -195,8 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get popup element
     const popup = document.getElementById('popup');
     
-    // Hide popup on first click
-    document.addEventListener('click', (e) => {
+    // Create a reusable popup click handler
+    const handlePopupClick = (e) => {
         // Don't hide popup when clicking language buttons
         if (e.target.closest('.lang-btn')) {
             return;
@@ -204,7 +204,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (popup) {
             popup.style.display = 'none';
         }
-    }, { once: true });  // Remove listener after first click
+    };
+    
+    // Initial popup click handler
+    document.addEventListener('click', handlePopupClick);
+    
+    // Make the handler available globally for language switching
+    window.handlePopupClick = handlePopupClick;
     
     const gameOfLife = new GameOfLife(canvas);
     

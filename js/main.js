@@ -20,6 +20,7 @@ const LanguageManager = {
         const enContent = document.querySelector('.content.en');
         const grContent = document.querySelector('.content.gr');
         const buttons = document.querySelectorAll('.lang-btn');
+        const popup = document.getElementById('popup');
     
         if (lang === 'en') {
             if (enContent) enContent.style.display = 'block';
@@ -42,6 +43,11 @@ const LanguageManager = {
         
         // Update all links to include the language parameter
         this.updateLinks(lang);
+    
+        // Reset popup visibility when switching languages
+        if (popup) {
+            popup.style.display = 'block';
+        }
     
         // Notify game to re-initialize for the new language
         window.dispatchEvent(new Event('languageChanged'));
