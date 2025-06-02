@@ -195,8 +195,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Get popup element
     const popup = document.getElementById('popup');
     
-    // Track if popup has been clicked
-    window.popupClicked = false;
+    // Reset popup state
+    if (popup) {
+        popup.style.display = 'block';
+        window.popupClicked = false;
+    }
     
     // Create a reusable popup click handler
     const handlePopupClick = (e) => {
@@ -216,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Make the handler available globally for language switching
     window.handlePopupClick = handlePopupClick;
     
+    // Create and initialize new game instance
     const gameOfLife = new GameOfLife(canvas);
     
     // Store reference to game instance

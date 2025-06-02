@@ -44,9 +44,16 @@ const LanguageManager = {
         // Update all links to include the language parameter
         this.updateLinks(lang);
     
-        // Only show popup if it hasn't been clicked before
-        if (popup && !window.popupClicked) {
+        // Reset popup state
+        if (popup) {
             popup.style.display = 'block';
+            window.popupClicked = false;
+        }
+    
+        // Reset game state if on main page
+        if (window.gameOfLife) {
+            window.gameOfLife.cells.clear();
+            window.gameOfLife.generateRandomCells(100);
         }
     
         // Notify game to re-initialize for the new language
