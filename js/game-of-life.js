@@ -232,17 +232,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // Store reference to game instance
     window.gameOfLife = gameOfLife;
 
-    // Add event listener for page visibility changes
-    document.addEventListener('visibilitychange', () => {
-        if (document.visibilityState === 'visible') {
-            // Reset game and popup when returning to the page
-            if (window.gameOfLife) {
-                window.gameOfLife.reset();
-            }
-            if (popup) {
-                popup.style.display = 'block';
-                window.popupClicked = false;
-            }
+    // Function to reset game and popup
+    function resetGameAndPopup() {
+        if (window.gameOfLife) {
+            window.gameOfLife.reset();
+        }
+        if (popup) {
+            popup.style.display = 'block';
+            window.popupClicked = false;
+        }
+    }
+
+    // Add event listener for page navigation
+    window.addEventListener('pageshow', (event) => {
+        // Check if we're on the index page
+        if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
+            resetGameAndPopup();
         }
     });
+
+    // Also reset on initial page load
+    resetGameAndPopup();
 }); 
