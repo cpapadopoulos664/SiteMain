@@ -173,6 +173,13 @@ class GameOfLife {
         }
         this.isRunning = true;
     }
+
+    reset() {
+        this.cells.clear();
+        this.generation = 0;
+        this.generateRandomCells(100);
+        this.isRunning = true;
+    }
 }
 
 // Initialize when the document is loaded
@@ -224,14 +231,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Store reference to game instance
     window.gameOfLife = gameOfLife;
-    
-    // Log canvas dimensions
-    console.log('Canvas dimensions:', {
-        width: canvas.width,
-        height: canvas.height,
-        styleWidth: canvas.style.width,
-        styleHeight: canvas.style.height,
-        clientWidth: canvas.clientWidth,
-        clientHeight: canvas.clientHeight
+
+    // Add event listener for page visibility changes
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+            // Reset game and popup when returning to the page
+            if (window.gameOfLife) {
+                window.gameOfLife.reset();
+            }
+            if (popup) {
+                popup.style.display = 'block';
+                window.popupClicked = false;
+            }
+        }
     });
 }); 

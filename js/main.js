@@ -52,8 +52,7 @@ const LanguageManager = {
     
         // Reset game state if on main page
         if (window.gameOfLife) {
-            window.gameOfLife.cells.clear();
-            window.gameOfLife.generateRandomCells(100);
+            window.gameOfLife.reset();
         }
     
         // Notify game to re-initialize for the new language
